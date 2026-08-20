@@ -1,0 +1,376 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="An interactive, browser-based laboratory for learning data handling, neural-network training, CNNs, RNNs, and deep-learning optimization.">
+  <meta name="theme-color" content="#08111f">
+  <title>Neural Lab | Interactive Deep Learning</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar" aria-label="Primary navigation">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true">
+          <span></span><span></span><span></span>
+        </div>
+        <div>
+          <strong>Neural Lab</strong>
+          <small>Learn by experimenting</small>
+        </div>
+      </div>
+
+      <nav class="nav-list">
+        <button class="nav-item active" data-target="dashboard" aria-current="page">
+          <span class="nav-icon">⌂</span><span>Learning map</span>
+        </button>
+        <p class="nav-label">Foundations</p>
+        <button class="nav-item" data-target="data-lab"><span class="nav-icon">◫</span><span>Data lab</span></button>
+        <button class="nav-item" data-target="linear-lab"><span class="nav-icon">↗</span><span>Fit a model</span></button>
+        <button class="nav-item" data-target="perceptron-lab"><span class="nav-icon">◎</span><span>Perceptron</span></button>
+        <p class="nav-label">Deep learning</p>
+        <button class="nav-item" data-target="activation-lab"><span class="nav-icon">∿</span><span>Activations</span></button>
+        <button class="nav-item" data-target="network-lab"><span class="nav-icon">⌘</span><span>Network builder</span></button>
+        <button class="nav-item" data-target="optimizer-lab"><span class="nav-icon">▽</span><span>Optimizers</span></button>
+        <button class="nav-item" data-target="regularization-lab"><span class="nav-icon">≈</span><span>Generalization</span></button>
+        <p class="nav-label">Architectures</p>
+        <button class="nav-item" data-target="cnn-lab"><span class="nav-icon">▦</span><span>CNN lab</span></button>
+        <button class="nav-item" data-target="sequence-lab"><span class="nav-icon">⟲</span><span>Sequence lab</span></button>
+        <button class="nav-item" data-target="quiz-lab"><span class="nav-icon">✓</span><span>Mastery check</span></button>
+      </nav>
+
+      <div class="sidebar-progress">
+        <div class="progress-copy"><span>Course progress</span><strong id="sidebar-progress-text">0%</strong></div>
+        <div class="progress-track"><span id="sidebar-progress-bar"></span></div>
+        <small>Progress is saved on this device.</small>
+      </div>
+    </aside>
+
+    <div class="content-shell">
+      <header class="topbar">
+        <button class="icon-button mobile-menu" id="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+        <div class="breadcrumb"><span>Interactive course</span><b>/</b><strong id="current-section-name">Learning map</strong></div>
+        <div class="top-actions">
+          <button class="streak-pill" id="reset-progress" title="Reset saved progress"><span>◆</span><span id="xp-count">0 XP</span></button>
+          <button class="icon-button" id="theme-toggle" aria-label="Toggle color theme">☾</button>
+        </div>
+      </header>
+
+      <main id="main-content">
+        <section class="panel active" id="dashboard" data-title="Learning map">
+          <div class="hero-card">
+            <div class="hero-copy">
+              <span class="eyebrow"><i></i> Interactive deep-learning studio</span>
+              <h1>Train your intuition.<br><em>Not just your model.</em></h1>
+              <p>Change the data, tune the parameters, and watch learning happen. Every lab turns a core lecture concept into an experiment you can see and control.</p>
+              <div class="hero-actions">
+                <button class="primary-button" data-go="data-lab">Start with the data <span>→</span></button>
+                <button class="secondary-button" data-go="quiz-lab">Test my knowledge</button>
+              </div>
+            </div>
+            <div class="hero-visual" aria-hidden="true">
+              <div class="orb orb-one"></div><div class="orb orb-two"></div>
+              <svg viewBox="0 0 480 330" role="img" aria-label="Animated neural network illustration">
+                <g class="network-lines">
+                  <path d="M70 70 L205 48 M70 70 L205 130 M70 165 L205 48 M70 165 L205 130 M70 165 L205 215 M70 260 L205 130 M70 260 L205 215 M205 48 L350 90 M205 48 L350 220 M205 130 L350 90 M205 130 L350 220 M205 215 L350 90 M205 215 L350 220 M350 90 L430 165 M350 220 L430 165"/>
+                </g>
+                <g class="network-nodes input-nodes"><circle cx="70" cy="70" r="15"/><circle cx="70" cy="165" r="15"/><circle cx="70" cy="260" r="15"/></g>
+                <g class="network-nodes hidden-nodes"><circle cx="205" cy="48" r="18"/><circle cx="205" cy="130" r="18"/><circle cx="205" cy="215" r="18"/></g>
+                <g class="network-nodes hidden-nodes two"><circle cx="350" cy="90" r="18"/><circle cx="350" cy="220" r="18"/></g>
+                <g class="network-nodes output-node"><circle cx="430" cy="165" r="23"/></g>
+              </svg>
+              <div class="floating-metric metric-loss"><small>LOSS</small><strong>0.042</strong><span>↓ 18%</span></div>
+              <div class="floating-metric metric-epoch"><small>EPOCH</small><strong>24 / 40</strong></div>
+            </div>
+          </div>
+
+          <div class="section-heading dashboard-heading">
+            <div><span class="eyebrow">Your learning path</span><h2>Nine experiments. One connected story.</h2></div>
+            <div class="mastery-ring" id="mastery-ring"><div><strong id="mastery-percent">0%</strong><small>mastered</small></div></div>
+          </div>
+
+          <div class="module-grid">
+            <article class="module-card" data-module="data-lab">
+              <span class="module-number">01</span><div class="module-art data-art"><i></i><i></i><i></i><i></i><i></i></div>
+              <span class="module-tag">Foundation · 8 min</span><h3>Shape the data</h3><p>Generate, split, shuffle, and normalize datasets. See how preparation changes what a model receives.</p>
+              <button data-go="data-lab">Open experiment <span>→</span></button>
+            </article>
+            <article class="module-card" data-module="linear-lab">
+              <span class="module-number">02</span><div class="module-art line-art"><i></i><b></b></div>
+              <span class="module-tag">Training · 8 min</span><h3>Fit a model</h3><p>Adjust slope and bias yourself, then let gradient descent minimize the error.</p>
+              <button data-go="linear-lab">Open experiment <span>→</span></button>
+            </article>
+            <article class="module-card" data-module="perceptron-lab">
+              <span class="module-number">03</span><div class="module-art boundary-art"><i></i><i></i><i></i><i></i><b></b></div>
+              <span class="module-tag">ANN · 10 min</span><h3>Teach a perceptron</h3><p>Watch weights move a decision boundary and discover why XOR requires hidden layers.</p>
+              <button data-go="perceptron-lab">Open experiment <span>→</span></button>
+            </article>
+            <article class="module-card" data-module="activation-lab">
+              <span class="module-number">04</span><div class="module-art activation-art"><svg viewBox="0 0 180 70"><path d="M3 64 C40 64, 48 60, 70 52 S96 16, 177 7"/><path class="ghost" d="M3 60 L86 60 L86 8 L177 8"/></svg></div>
+              <span class="module-tag">DNN · 7 min</span><h3>Explore activations</h3><p>Compare sigmoid, tanh, ReLU, and their derivatives as depth increases.</p>
+              <button data-go="activation-lab">Open experiment <span>→</span></button>
+            </article>
+            <article class="module-card" data-module="optimizer-lab">
+              <span class="module-number">05</span><div class="module-art contour-art"><i></i><i></i><i></i><b></b></div>
+              <span class="module-tag">Optimization · 10 min</span><h3>Race optimizers</h3><p>Send SGD, Momentum, RMSProp, and Adam across the same loss surface.</p>
+              <button data-go="optimizer-lab">Open experiment <span>→</span></button>
+            </article>
+            <article class="module-card" data-module="cnn-lab">
+              <span class="module-number">06</span><div class="module-art pixel-art" aria-hidden="true"></div>
+              <span class="module-tag">CNN · 12 min</span><h3>Convolve an image</h3><p>Edit pixels, choose a kernel, set padding and stride, then inspect the feature map.</p>
+              <button data-go="cnn-lab">Open experiment <span>→</span></button>
+            </article>
+          </div>
+        </section>
+
+        <section class="panel" id="data-lab" data-title="Data lab">
+          <div class="lab-heading">
+            <div><span class="chapter-pill">01 · Data handling</span><h1>Build the model's experience</h1><p>A model learns from the examples it receives. Explore how sampling, noise, splitting, and scaling change that experience.</p></div>
+            <button class="complete-button" data-complete="data-lab"><span>○</span> Mark complete</button>
+          </div>
+          <div class="concept-strip"><strong>Lecture connection</strong><span>Data is divided into a training set for updating parameters and a test set for evaluating performance on unseen examples.</span></div>
+          <div class="lab-grid wide-visual">
+            <article class="control-card">
+              <div class="card-heading"><div><span class="card-kicker">Dataset recipe</span><h2>Generate samples</h2></div><button class="mini-button" id="data-randomize">↻ New seed</button></div>
+              <label>Problem type<select id="data-type"><option value="classification">Two-class classification</option><option value="moons">Interleaving moons</option><option value="regression">Linear regression</option></select></label>
+              <label>Samples <output id="sample-count-output">80</output><input id="sample-count" type="range" min="30" max="180" value="80"></label>
+              <label>Noise <output id="noise-output">18%</output><input id="noise-level" type="range" min="0" max="50" value="18"></label>
+              <label>Training split <output id="split-output">80%</output><input id="split-ratio" type="range" min="50" max="90" value="80"></label>
+              <label class="toggle-row"><span><strong>Standardize features</strong><small>Center at 0 with unit variance</small></span><input id="normalize-data" type="checkbox"><i></i></label>
+              <div class="button-row"><button class="secondary-button full" id="shuffle-data">Shuffle order</button><button class="primary-button full" id="generate-data">Generate data</button></div>
+            </article>
+            <article class="visual-card">
+              <div class="card-heading"><div><span class="card-kicker">Live preview</span><h2>Train / test distribution</h2></div><div class="legend"><span class="dot train"></span>Train <span class="dot test"></span>Test</div></div>
+              <canvas id="data-canvas" height="390" aria-label="Dataset train and test split visualization"></canvas>
+              <div class="stat-grid four"><div><span>Train</span><strong id="train-count">64</strong></div><div><span>Test</span><strong id="test-count">16</strong></div><div><span>Feature μ</span><strong id="feature-mean">0.50</strong></div><div><span>Feature σ</span><strong id="feature-std">0.28</strong></div></div>
+            </article>
+          </div>
+          <div class="insight-card" id="data-insight"><span>✦</span><div><strong>Try this</strong><p>Increase noise and shrink the training split. Notice that fewer, messier examples make it harder to learn a dependable boundary.</p></div></div>
+        </section>
+
+        <section class="panel" id="linear-lab" data-title="Fit a model">
+          <div class="lab-heading">
+            <div><span class="chapter-pill">02 · Learning & adaptation</span><h1>Find the line that learns</h1><p>A simple model predicts <i>ŷ = mx + c</i>. Change its parameters manually, then watch gradient descent improve them.</p></div>
+            <button class="complete-button" data-complete="linear-lab"><span>○</span> Mark complete</button>
+          </div>
+          <div class="lab-grid wide-visual">
+            <article class="control-card">
+              <div class="card-heading"><div><span class="card-kicker">Model parameters</span><h2>Shape the prediction</h2></div><span class="status-badge" id="linear-status">Manual</span></div>
+              <label>Slope (m) <output id="slope-output">-0.50</output><input id="slope" type="range" min="-200" max="200" value="-50"></label>
+              <label>Bias (c) <output id="bias-output">0.20</output><input id="bias" type="range" min="-100" max="100" value="20"></label>
+              <label>Learning rate <output id="linear-lr-output">0.08</output><input id="linear-lr" type="range" min="1" max="20" value="8"></label>
+              <div class="formula-box"><span>Prediction</span><strong id="linear-formula">ŷ = -0.50x + 0.20</strong></div>
+              <div class="button-row"><button class="secondary-button full" id="linear-step">One update</button><button class="primary-button full" id="linear-train">Auto train</button></div>
+              <button class="text-button" id="linear-reset">Reset model and data</button>
+            </article>
+            <article class="visual-card">
+              <div class="card-heading"><div><span class="card-kicker">Error minimization</span><h2>Model fit</h2></div><div class="metric-chip">MSE <strong id="linear-loss">0.000</strong></div></div>
+              <canvas id="linear-canvas" height="360" aria-label="Linear regression model fit"></canvas>
+              <div class="loss-sparkline"><span>Loss history</span><canvas id="loss-canvas" height="76" aria-label="Training loss curve"></canvas></div>
+            </article>
+          </div>
+        </section>
+
+        <section class="panel" id="perceptron-lab" data-title="Perceptron">
+          <div class="lab-heading">
+            <div><span class="chapter-pill">03 · Single-layer perceptron</span><h1>Move the decision boundary</h1><p>Each mistake updates the weights. Run one epoch at a time and watch a line separate the two classes—when separation is possible.</p></div>
+            <button class="complete-button" data-complete="perceptron-lab"><span>○</span> Mark complete</button>
+          </div>
+          <div class="concept-strip"><strong>Learning rule</strong><span><i>w ← w + η(d − y)x</i> · The learning rate η controls the size of every correction.</span></div>
+          <div class="lab-grid wide-visual">
+            <article class="control-card">
+              <div class="card-heading"><div><span class="card-kicker">Training setup</span><h2>Configure the learner</h2></div><span class="status-badge" id="perceptron-state">Untrained</span></div>
+              <label>Dataset<select id="perceptron-dataset"><option value="linear">Linearly separable</option><option value="xor">XOR challenge</option></select></label>
+              <label>Learning rate <output id="perceptron-lr-output">0.10</output><input id="perceptron-lr" type="range" min="1" max="50" value="10"></label>
+              <div class="weight-readout"><div><span>w₁</span><strong id="weight-one">0.00</strong></div><div><span>w₂</span><strong id="weight-two">0.00</strong></div><div><span>bias</span><strong id="weight-bias">0.00</strong></div></div>
+              <div class="button-row"><button class="secondary-button full" id="perceptron-step">Train 1 epoch</button><button class="primary-button full" id="perceptron-run">Train to stop</button></div>
+              <button class="text-button" id="perceptron-reset">Reset weights</button>
+            </article>
+            <article class="visual-card">
+              <div class="card-heading"><div><span class="card-kicker">Classification space</span><h2>Decision boundary</h2></div><div class="legend"><span class="class-dot class-a"></span>Class 0 <span class="class-dot class-b"></span>Class 1</div></div>
+              <canvas id="perceptron-canvas" height="390" aria-label="Perceptron decision boundary"></canvas>
+              <div class="stat-grid three"><div><span>Epoch</span><strong id="epoch-count">0</strong></div><div><span>Mistakes</span><strong id="mistake-count">—</strong></div><div><span>Accuracy</span><strong id="perceptron-accuracy">50%</strong></div></div>
+            </article>
+          </div>
+          <div class="insight-card warning" id="perceptron-insight"><span>!</span><div><strong>Linear separability matters</strong><p>A single perceptron can only create one straight boundary. Switch to XOR to see why a multilayer network is needed.</p></div></div>
+        </section>
+
+        <section class="panel" id="activation-lab" data-title="Activations">
+          <div class="lab-heading">
+            <div><span class="chapter-pill">04 · Activation functions</span><h1>See where gradients flow</h1><p>Activations make networks nonlinear. Their derivatives also decide whether learning signals survive through many layers.</p></div>
+            <button class="complete-button" data-complete="activation-lab"><span>○</span> Mark complete</button>
+          </div>
+          <div class="lab-grid balanced">
+            <article class="visual-card">
+              <div class="card-heading"><div><span class="card-kicker">Function explorer</span><h2 id="activation-title">Sigmoid</h2></div><div class="segmented" id="activation-tabs"><button class="active" data-activation="sigmoid">σ</button><button data-activation="tanh">tanh</button><button data-activation="relu">ReLU</button><button data-activation="leaky">Leaky</button></div></div>
+              <canvas id="activation-canvas" height="390" aria-label="Activation function and derivative plot"></canvas>
+              <div class="legend activation-legend"><span class="line-key function"></span>Function f(x)<span class="line-key derivative"></span>Derivative f′(x)</div>
+            </article>
+            <article class="control-card">
+              <span class="card-kicker">Gradient microscope</span><h2>Propagate through depth</h2>
+              <label>Input x <output id="activation-x-output">1.0</output><input id="activation-x" type="range" min="-50" max="50" value="10"></label>
+              <label>Number of layers <output id="depth-output">8</output><input id="network-depth" type="range" min="1" max="30" value="8"></label>
+              <div class="activation-values"><div><span>f(x)</span><strong id="activation-value">0.731</strong></div><div><span>f′(x)</span><strong id="derivative-value">0.197</strong></div></div>
+              <div class="gradient-meter"><div class="gradient-meter-head"><span>Gradient retained</span><strong id="gradient-retained">0.0002%</strong></div><div><i id="gradient-meter-bar"></i></div></div>
+              <div class="formula-box"><span>Chain-rule estimate</span><strong id="gradient-formula">0.197⁸</strong></div>
+              <p class="micro-copy" id="activation-explanation">Sigmoid saturates at both extremes, where its derivative approaches zero. Deep chains can quickly lose their learning signal.</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="panel" id="network-lab" data-title="Network builder">
+          <div class="lab-heading">
+            <div><span class="chapter-pill">05 · Multilayer networks</span><h1>Design a neural network</h1><p>Add hidden layers, change their width, and calculate how every connection and bias contributes to the parameter count.</p></div>
+            <button class="complete-button" data-complete="network-lab"><span>○</span> Mark complete</button>
+          </div>
+          <div class="lab-grid wide-visual">
+            <article class="control-card">
+              <div class="card-heading"><div><span class="card-kicker">Architecture</span><h2>Layer stack</h2></div><span class="status-badge">Dense</span></div>
+              <label>Input features <input class="number-input" id="network-inputs" type="number" min="1" max="12" value="3"></label>
+              <div id="hidden-layer-list" class="layer-list"></div>
+              <button class="add-layer-button" id="add-hidden-layer">＋ Add hidden layer</button>
+              <label>Output units <input class="number-input" id="network-outputs" type="number" min="1" max="8" value="2"></label>
+              <label>Hidden activation<select id="network-activation"><option>ReLU</option><option>Sigmoid</option><option>Tanh</option></select></label>
+              <div class="formula-box"><span>Total trainable parameters</span><strong id="parameter-count">0</strong></div>
+            </article>
+            <article class="visual-card network-card">
+              <div class="card-heading"><div><span class="card-kicker">Connection map</span><h2>Forward architecture</h2></div><div class="metric-chip"><span id="network-depth-label">3 layers</span></div></div>
+              <canvas id="network-canvas" height="430" aria-label="Neural network architecture visualization"></canvas>
+              <p class="canvas-caption" id="network-summary">Each layer transforms the representation learned by the layer before it.</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="panel" id="optimizer-lab" data-title="Optimizers">
+          <div class="lab-heading">
+            <div><span class="chapter-pill">06 · Optimization</span><h1>Navigate the loss landscape</h1><p>Optimizers follow gradients differently. Place a starting point, tune the learning rate, and compare their path to the minimum.</p></div>
+            <button class="complete-button" data-complete="optimizer-lab"><span>○</span> Mark complete</button>
+          </div>
+          <div class="lab-grid wide-visual">
+            <article class="control-card">
+              <div class="card-heading"><div><span class="card-kicker">Race setup</span><h2>Choose an optimizer</h2></div><span class="status-badge" id="optimizer-step-count">Step 0</span></div>
+              <label>Optimizer<select id="optimizer-select"><option value="sgd">SGD</option><option value="momentum">Momentum</option><option value="rmsprop">RMSProp</option><option value="adam" selected>Adam</option></select></label>
+              <label>Learning rate <output id="optimizer-lr-output">0.08</output><input id="optimizer-lr" type="range" min="1" max="20" value="8"></label>
+              <div class="optimizer-facts" id="optimizer-facts"><strong>Adam</strong><p>Combines momentum with adaptive per-parameter step sizes.</p></div>
+              <div class="button-row"><button class="secondary-button full" id="optimizer-step">One step</button><button class="primary-button full" id="optimizer-run">Run 40 steps</button></div>
+              <button class="text-button" id="optimizer-reset">Reset starting point</button>
+            </article>
+            <article class="visual-card">
+              <div class="card-heading"><div><span class="card-kicker">Contour map</span><h2>Loss surface</h2></div><div class="metric-chip">Loss <strong id="optimizer-loss">—</strong></div></div>
+              <canvas id="optimizer-canvas" height="430" aria-label="Optimizer path across a loss surface"></canvas>
+              <p class="canvas-caption">Click anywhere on the landscape to move the starting point.</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="panel" id="regularization-lab" data-title="Generalization">
+          <div class="lab-heading">
+            <div><span class="chapter-pill">07 · Generalization</span><h1>Balance bias and variance</h1><p>Model complexity can improve the training fit while hurting unseen data. Use regularization to control that trade-off.</p></div>
+            <button class="complete-button" data-complete="regularization-lab"><span>○</span> Mark complete</button>
+          </div>
+          <div class="lab-grid wide-visual">
+            <article class="control-card">
+              <span class="card-kicker">Experiment controls</span><h2>Tune model capacity</h2>
+              <label>Model complexity <output id="complexity-output">5</output><input id="model-complexity" type="range" min="1" max="10" value="5"></label>
+              <label>Training examples <output id="training-size-output">18</output><input id="training-size" type="range" min="8" max="40" value="18"></label>
+              <label>L2 regularization λ <output id="lambda-output">0.10</output><input id="regularization-lambda" type="range" min="0" max="100" value="10"></label>
+              <label>Dropout rate <output id="dropout-output">0%</output><input id="dropout-rate" type="range" min="0" max="70" value="0"></label>
+              <div class="fit-diagnosis" id="fit-diagnosis"><span>Balanced fit</span><p>Capacity and constraint are currently in a useful range.</p></div>
+            </article>
+            <article class="visual-card">
+              <div class="card-heading"><div><span class="card-kicker">Generalization view</span><h2>Training vs unseen data</h2></div><div class="legend"><span class="line-key truth"></span>True pattern <span class="line-key model"></span>Model</div></div>
+              <canvas id="regularization-canvas" height="370" aria-label="Underfitting and overfitting visualization"></canvas>
+              <div class="stat-grid three"><div><span>Train error</span><strong id="train-error">—</strong></div><div><span>Validation error</span><strong id="validation-error">—</strong></div><div><span>Effective capacity</span><strong id="effective-capacity">—</strong></div></div>
+            </article>
+          </div>
+        </section>
+
+        <section class="panel" id="cnn-lab" data-title="CNN lab">
+          <div class="lab-heading">
+            <div><span class="chapter-pill">08 · Convolutional networks</span><h1>Turn pixels into features</h1><p>Edit an 8×8 image, slide a learnable-style filter across it, and see how padding, stride, activation, and pooling transform the result.</p></div>
+            <button class="complete-button" data-complete="cnn-lab"><span>○</span> Mark complete</button>
+          </div>
+          <div class="concept-strip"><strong>Convolution rule</strong><span>Output size = ⌊(input + 2 × padding − filter) / stride⌋ + 1</span></div>
+          <div class="cnn-workbench">
+            <article class="visual-card compact-card">
+              <div class="card-heading"><div><span class="card-kicker">1 · Input</span><h2>Pixel editor</h2></div><button class="mini-button" id="cnn-sample">Load shape</button></div>
+              <canvas id="cnn-input-canvas" height="360" aria-label="Editable 8 by 8 image grid"></canvas>
+              <p class="canvas-caption">Click cells to cycle intensity.</p>
+            </article>
+            <article class="control-card compact-card">
+              <span class="card-kicker">2 · Operation</span><h2>Configure filter</h2>
+              <label>Kernel<select id="kernel-select"><option value="edge">Vertical edge</option><option value="horizontal">Horizontal edge</option><option value="sharpen">Sharpen</option><option value="blur">Box blur</option><option value="emboss">Emboss</option></select></label>
+              <div class="kernel-grid" id="kernel-grid" aria-label="Selected 3 by 3 convolution kernel"></div>
+              <label>Padding<select id="padding-select"><option value="same">Same</option><option value="valid">Valid</option></select></label>
+              <label>Stride<select id="stride-select"><option value="1">1</option><option value="2">2</option></select></label>
+              <label class="toggle-row"><span><strong>Apply ReLU</strong><small>Clamp negative values to zero</small></span><input id="cnn-relu" type="checkbox" checked><i></i></label>
+              <label class="toggle-row"><span><strong>2×2 max pooling</strong><small>Downsample the feature map</small></span><input id="cnn-pooling" type="checkbox"><i></i></label>
+            </article>
+            <article class="visual-card compact-card">
+              <div class="card-heading"><div><span class="card-kicker">3 · Output</span><h2>Feature map</h2></div><span class="status-badge" id="cnn-output-shape">8 × 8</span></div>
+              <canvas id="cnn-output-canvas" height="360" aria-label="Convolution output feature map"></canvas>
+              <p class="canvas-caption" id="cnn-caption">Bright cells show where the selected feature is strongest.</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="panel" id="sequence-lab" data-title="Sequence lab">
+          <div class="lab-heading">
+            <div><span class="chapter-pill">09 · RNN, LSTM & GRU</span><h1>Carry memory through time</h1><p>Process a sentence token by token and compare how vanilla RNNs, LSTMs, and GRUs preserve earlier context.</p></div>
+            <button class="complete-button" data-complete="sequence-lab"><span>○</span> Mark complete</button>
+          </div>
+          <div class="lab-grid balanced">
+            <article class="control-card">
+              <div class="card-heading"><div><span class="card-kicker">Sequence setup</span><h2>Memory cell</h2></div><span class="status-badge" id="sequence-step-label">Ready</span></div>
+              <label>Architecture<select id="sequence-cell"><option value="rnn">Vanilla RNN</option><option value="lstm" selected>LSTM</option><option value="gru">GRU</option></select></label>
+              <label>Input sequence<textarea id="sequence-input" rows="3">The movie started slowly but the ending was absolutely brilliant</textarea></label>
+              <label>Forget / retention gate <output id="retention-output">88%</output><input id="retention-gate" type="range" min="20" max="99" value="88"></label>
+              <div class="button-row"><button class="secondary-button full" id="sequence-step">Next token</button><button class="primary-button full" id="sequence-run">Run sequence</button></div>
+              <button class="text-button" id="sequence-reset">Reset memory</button>
+            </article>
+            <article class="visual-card">
+              <div class="card-heading"><div><span class="card-kicker">Unrolled through time</span><h2>Context retention</h2></div><div class="metric-chip">Memory <strong id="memory-score">0%</strong></div></div>
+              <canvas id="sequence-canvas" height="350" aria-label="Recurrent neural network memory visualization"></canvas>
+              <div class="sequence-tokens" id="sequence-tokens"></div>
+              <div class="memory-summary" id="memory-summary"><span>Waiting for the first token…</span></div>
+            </article>
+          </div>
+          <div class="comparison-row">
+            <div><strong>Vanilla RNN</strong><span>Simple hidden state</span><i style="--memory:42%"></i></div>
+            <div><strong>GRU</strong><span>Reset + update gates</span><i style="--memory:76%"></i></div>
+            <div><strong>LSTM</strong><span>Cell state + 3 gates</span><i style="--memory:90%"></i></div>
+          </div>
+        </section>
+
+        <section class="panel" id="quiz-lab" data-title="Mastery check">
+          <div class="lab-heading">
+            <div><span class="chapter-pill">Final challenge</span><h1>Check your deep-learning intuition</h1><p>Ten questions connect data handling, training, optimization, CNNs, and recurrent networks.</p></div>
+            <button class="complete-button" data-complete="quiz-lab"><span>○</span> Mark complete</button>
+          </div>
+          <div class="quiz-layout">
+            <div class="quiz-progress-card">
+              <span class="card-kicker">Knowledge check</span><h2>Your attempt</h2>
+              <div class="quiz-score-ring" id="quiz-score-ring"><div><strong id="quiz-score">—</strong><small>score</small></div></div>
+              <p id="quiz-message">Answer every question, then submit to reveal explanations.</p>
+              <button class="primary-button full" id="submit-quiz">Submit answers</button>
+              <button class="text-button" id="reset-quiz">Try again</button>
+            </div>
+            <form class="quiz-questions" id="quiz-form"></form>
+          </div>
+        </section>
+      </main>
+
+      <footer>
+        <span>Neural Lab · Original interactive learning experience</span>
+        <span>Built for experimentation, reflection, and classroom use.</span>
+      </footer>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"><span>✓</span><p>Progress saved</p></div>
+  <script src="app.js"></script>
+</body>
+</html>
