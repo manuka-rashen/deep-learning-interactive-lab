@@ -1,0 +1,11 @@
+{
+  "name": "neural-lab-interactive-deep-learning",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A dependency-free interactive lab for deep-learning and data-handling concepts.",
+  "scripts": {
+    "test": "node tests/smoke-test.mjs",
+    "serve": "python3 -m http.server 8000"
+  },
+  "license": "MIT"
+}
